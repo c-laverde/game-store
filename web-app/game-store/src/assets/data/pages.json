@@ -1,0 +1,27 @@
+[
+    {
+        "icon": "home",
+        "name": "Inicio",
+        "navigateTo": "home"
+    },
+    {
+        "icon": "people",
+        "name": "Usuarios",
+        "navigateTo": "users"
+    },
+    {
+        "icon": "game-controller",
+        "name": "Juegos",
+        "navigateTo": "games"
+    },
+    {
+        "icon": "calendar",
+        "name": "Préstamos",
+        "navigateTo": "orders"
+    },
+    {
+        "icon": "information-circle",
+        "name": "Acerca de",
+        "navigateTo": "about"
+    }
+]
