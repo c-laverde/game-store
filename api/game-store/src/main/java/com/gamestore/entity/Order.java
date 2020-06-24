@@ -1,46 +1,47 @@
 package com.gamestore.entity;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Order {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	private Date date;
 	private int total;
 	private Date expirationDate;
+	
 	private int idCustomer;
 	
-	@OneToMany(targetEntity = OrderGames.class, cascade = CascadeType.ALL)
+	
+	private int idGame;
+	
+	/*@OneToMany(targetEntity = OrderGames.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idOrder", referencedColumnName = "id")
-	private List<OrderGames> games;
+	private List<OrderGames> games;*/
 	
 	public Order() {}
 	
-	public Order(Date date, int total, Date expirationDate, int idCustomer) {
+	public Order(Date date, int total, Date expirationDate, int idCustomer, int idGame) {
 		super();
 		this.date = date;
 		this.total = total;
 		this.expirationDate = expirationDate;
 		this.idCustomer = idCustomer;
+		this.idGame = idGame;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -74,6 +75,14 @@ public class Order {
 
 	public void setIdCustomer(int idCustomer) {
 		this.idCustomer = idCustomer;
+	}
+
+	public int getIdGame() {
+		return idGame;
+	}
+
+	public void setIdGame(int idGame) {
+		this.idGame = idGame;
 	}
 	
 }

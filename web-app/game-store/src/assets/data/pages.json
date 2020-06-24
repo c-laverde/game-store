@@ -6,8 +6,8 @@
     },
     {
         "icon": "people",
-        "name": "Usuarios",
-        "navigateTo": "users"
+        "name": "Clientes",
+        "navigateTo": "customers"
     },
     {
         "icon": "game-controller",

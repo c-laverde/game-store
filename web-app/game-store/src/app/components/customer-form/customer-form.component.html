@@ -1,0 +1,21 @@
+<div class="container">
+
+  <form [formGroup]="cForm" (ngSubmit)="close()">
+    <ion-item>
+      <ion-label position="floating">Documento <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input formControlName="document" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Nombre <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input formControlName="name" type="text" maxlength="50"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Edad <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input formControlName="age" type="number"></ion-input>
+    </ion-item>
+    <ion-button class="btn-create" block color="primary" type="submit" [disabled]="cForm.invalid">
+      Crear
+    </ion-button>
+  </form>
+  
+</div>

@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { CustomerService } from 'src/app/services/customer.service';
+import { Customer } from 'src/app/interfaces/customer';
+import { ModalController } from '@ionic/angular';
+import { CustomerFormComponent } from 'src/app/components/customer-form/customer-form.component';
 
 export interface PeriodicElement {
   name: string;
@@ -33,26 +37,66 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.page.html',
-  styleUrls: ['./users.page.scss'],
+  selector: 'app-customers',
+  templateUrl: './customers.page.html',
+  styleUrls: ['./customers.page.scss'],
 })
-export class UsersPage implements OnInit {
+export class CustomersPage implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  displayedColumns: string[] = ['id', 'document', 'name', 'age'];
+  dataSource;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor() { }
+  customers: Customer[];
 
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+  constructor(
+    private customerService: CustomerService,
+    private modalCtrl: ModalController) { }
+
+  ngOnInit() { 
+    this.getUsers();
+  }
+
+  getUsers(): void {
+    this.customers = [];
+    this.customerService.getAll().subscribe(
+      response => {
+        this.customers = response;
+        console.log(this.customers);
+        this.dataSource = new MatTableDataSource<Customer>(this.customers);
+        this.dataSource.paginator = this.paginator;
+      },
+      err => {
+        console.warn("An error ocurred. ", err);
+      }
+    );
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  async openForm() {
+    const modal = await this.modalCtrl.create({
+      component: CustomerFormComponent,
+      cssClass: 'custom-modal',
+      animated: true
+    });
+
+    modal.onDidDismiss()
+      .then((data: any) => {
+        console.log(data);      
+        if (data.data) {
+          console.log("Consultar nuevamente los usuarios");
+          this.getUsers();
+        } else {
+          console.log("No consultar los usuarios");
+        }
+      });
+
+    return await modal.present();
   }
 
 }

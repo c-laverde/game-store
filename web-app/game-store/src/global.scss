@@ -24,3 +24,12 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+/* Custom modal for customerFormComponent */
+.custom-modal .modal-wrapper {
+    width: 30%;
+    height: 50%;
+    margin: 25% 5%;
+    border-radius: 10px;
+    //background: #fff;
+}
